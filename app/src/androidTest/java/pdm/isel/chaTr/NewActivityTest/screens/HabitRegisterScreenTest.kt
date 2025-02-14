@@ -47,6 +47,14 @@ class NewHabitScreenStateTest {
                 override suspend fun updateHabit(habit: Habit) {
                     TODO("Not yet implemented")
                 }
+
+                override suspend fun resetHabits() {
+                    TODO("Not yet implemented")
+                }
+
+                override suspend fun resetHabit(habitId: Int) {
+                    TODO("Not yet implemented")
+                }
             }
 
         )

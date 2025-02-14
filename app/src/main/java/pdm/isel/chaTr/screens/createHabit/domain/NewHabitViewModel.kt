@@ -20,7 +20,7 @@ class NewHabitViewModel(
     val screenState: StateFlow<NewHabitScreenState> = _screenState.asStateFlow()
 
     init {
-        _screenState.value = NewHabitScreenState.Displaying(null) // ✅ Automatically move to Displaying(null)
+        _screenState.value = NewHabitScreenState.Displaying(null)
     }
 
     fun startEditing() {
@@ -40,7 +40,7 @@ class NewHabitViewModel(
     fun saveHabit(updatedHabit: Habit): Job {
         return viewModelScope.launch {
             habitRepository.addHabit(updatedHabit)
-            _screenState.value = NewHabitScreenState.Displaying(updatedHabit) // ✅ Ensure transition to Displaying
+            _screenState.value = NewHabitScreenState.Displaying(updatedHabit)
         }
     }
 }

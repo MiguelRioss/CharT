@@ -16,7 +16,7 @@ fun HabitItem(
     habit: Habit,
     updateHabit: (Habit) -> Unit,
     onDelete: () -> Unit,
-    onReset: () -> Unit // ✅ Reset action added
+    onReset: () -> Unit
 ) {
 
     Card(
@@ -32,7 +32,6 @@ fun HabitItem(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // ✅ Centered Counter UI
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -63,7 +62,6 @@ fun HabitItem(
                 }
             }
 
-            // ✅ New Reset Button
             Button(
                 onClick = onReset, // Calls reset function
                 modifier = Modifier
@@ -73,7 +71,6 @@ fun HabitItem(
                 Text("Reset")
             }
 
-            // ✅ Delete Button
             Button(
                 onClick = onDelete,
                 modifier = Modifier

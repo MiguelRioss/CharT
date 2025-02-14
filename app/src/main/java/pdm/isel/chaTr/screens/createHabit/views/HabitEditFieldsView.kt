@@ -30,7 +30,7 @@ import pdm.isel.chaTr.util.TestTags
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitEditFields(
-    initialHabit: Habit? = null,  // ✅ Accepts an existing habit (if editing)
+    initialHabit: Habit? = null,
     onSaved: (Habit) -> Unit,
     onCancelled: () -> Unit
 ) {
@@ -77,7 +77,7 @@ fun HabitEditFields(
                     .fillMaxWidth()
                     .testTag(TestTags.HABIT_FREQUENCY_INPUT)
                     .menuAnchor()
-                    .clickable { isEditing = true } // ✅ Detects user editing
+                    .clickable { isEditing = true }
             )
 
             ExposedDropdownMenu(
@@ -90,7 +90,7 @@ fun HabitEditFields(
                         onClick = {
                             frequency = number
                             expanded = false
-                            isEditing = true // ✅ Detects changes
+                            isEditing = true
                         }
                     )
                 }
@@ -99,11 +99,11 @@ fun HabitEditFields(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // ✅ Buttons: Save or Cancel
+
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(
                 onClick = {
-                    onSaved(createHabit(name, description, frequency)) // ✅ Saves habit
+                    onSaved(createHabit(name, description, frequency))
                 },
                 modifier = Modifier.weight(1f).testTag(TestTags.SAVE_HABIT_BUTTON)
             ) {
@@ -111,7 +111,7 @@ fun HabitEditFields(
             }
 
             Button(
-                onClick = { onCancelled() }, // ✅ Cancels without saving
+                onClick = { onCancelled() },
                 modifier = Modifier.weight(1f).testTag(TestTags.CANCEL_HABIT_BUTTON)
             ) {
                 Text("Cancel")

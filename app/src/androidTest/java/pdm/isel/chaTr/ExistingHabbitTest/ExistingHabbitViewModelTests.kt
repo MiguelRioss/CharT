@@ -12,16 +12,15 @@ import pdm.isel.chaTr.domain.HabitRepository
 import pdm.isel.chaTr.screens.HabitList.ExistingHabitsViewModel
 import pdm.isel.cher.rules.ReplaceMainDispatcherRule
 
-@RunWith(AndroidJUnit4::class)  // ✅ Required for JUnit 4 compatibility
+@RunWith(AndroidJUnit4::class)
 class ExistingHabitsViewModelTest {
 
     @get:Rule
-    val dispatcherRule = ReplaceMainDispatcherRule() // ✅ Allows proper coroutine testing
-
+    val dispatcherRule = ReplaceMainDispatcherRule()
     private val testHabit = Habit(1, "Exercise", "Morning jog", 3)
 
     private val fakeRepo = object : HabitRepository {
-        private val _habits = MutableStateFlow<List<Habit>>(listOf(testHabit)) // ✅ Ensure emission
+        private val _habits = MutableStateFlow<List<Habit>>(listOf(testHabit))
         override val habits: StateFlow<List<Habit>> = _habits.asStateFlow()
 
         override suspend fun getHabits(): List<Habit> {
@@ -39,13 +38,21 @@ class ExistingHabitsViewModelTest {
         override suspend fun updateHabit(habit: Habit) {
             _habits.value = _habits.value.map { if (it.id == habit.id) habit else it }
         }
+
+        override suspend fun resetHabits() {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun resetHabit(habitId: Int) {
+            TODO("Not yet implemented")
+        }
     }
 
 
     @Test
     fun initialStateContainsTestHabit() = runTest {
         val viewModel = ExistingHabitsViewModel(fakeRepo)
-        advanceUntilIdle()  // ✅ Ensures Flow has collected the latest data
+        advanceUntilIdle()
         assertEquals(listOf(testHabit), viewModel.habits.value)
     }
 
@@ -54,7 +61,7 @@ class ExistingHabitsViewModelTest {
         val viewModel = ExistingHabitsViewModel(fakeRepo)
         viewModel.deleteHabit(testHabit.id)
         advanceUntilIdle()
-        assertTrue(viewModel.habits.value.isEmpty()) // ✅ Habit should be removed
+        assertTrue(viewModel.habits.value.isEmpty())
     }
 
     @Test
@@ -63,7 +70,7 @@ class ExistingHabitsViewModelTest {
         val updatedHabit = testHabit.copy(name = "Updated Exercise")
         viewModel.onEditHabit(updatedHabit)
         advanceUntilIdle()
-        assertEquals("Updated Exercise", viewModel.habits.value.first().name) // ✅ Check updated name
+        assertEquals("Updated Exercise", viewModel.habits.value.first().name)
     }
 
     @Test
@@ -72,6 +79,6 @@ class ExistingHabitsViewModelTest {
         val newHabit = Habit(2, "Reading", "Read a book", 1)
         fakeRepo.addHabit(newHabit)
         advanceUntilIdle()
-        assertTrue(viewModel.habits.value.contains(newHabit)) // ✅ New habit should be detected
+        assertTrue(viewModel.habits.value.contains(newHabit))
     }
 }

@@ -25,6 +25,13 @@ class NewHabitViewModelTests {
         override suspend fun removeHabit(habitId: Int) {}
         override suspend fun clearHabits() {}
         override suspend fun updateHabit(habit: Habit) {}
+        override suspend fun resetHabits() {
+            TODO("Not yet implemented")
+        }
+
+        override suspend fun resetHabit(habitId: Int) {
+            TODO("Not yet implemented")
+        }
     }
 
     @Test
